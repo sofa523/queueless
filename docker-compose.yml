@@ -1,0 +1,11 @@
+services:
+  queueless:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./static/qr:/app/static/qr
+      - ./private_key.pem:/app/private_key.pem:ro

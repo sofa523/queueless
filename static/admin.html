@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Админ — QueueLess</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1 id="queue-name">Загрузка…</h1>
+
+    <section class="card">
+      <h2>Сейчас обслуживается</h2>
+      <div id="current">—</div>
+      <div class="row">
+        <button id="serve">Обслужен</button>
+        <button id="skip">Пропустить</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Ожидают</h2>
+      <ul id="waiting"></ul>
+      <p id="empty-waiting" hidden>Ожидающих нет</p>
+    </section>
+
+    <section class="card">
+      <form id="add-form">
+        <input id="add-name" maxlength="50" placeholder="Имя клиента" required>
+        <button type="submit">Добавить</button>
+      </form>
+    </section>
+
+    <button id="next" class="big">Вызвать следующего</button>
+    <p class="stats">Обслужено сегодня: <span id="served">0</span></p>
+  </main>
+  <script src="/static/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Очередь — QueueLess</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1 id="queue-name">Загрузка…</h1>
+
+    <section id="join-block" class="card" hidden>
+      <form id="join-form">
+        <input id="name" maxlength="50" placeholder="Ваше имя" required>
+        <button type="submit">Встать в очередь</button>
+      </form>
+    </section>
+
+    <section id="status-block" class="card" hidden>
+      <div class="number" id="number">—</div>
+      <p>Перед вами: <span id="position">—</span></p>
+      <p>Примерное ожидание: ~<span id="eta">—</span> мин</p>
+      <p>Сейчас обслуживается: №<span id="current">—</span></p>
+      <p id="state-text">Ожидаете</p>
+      <button id="enable-push">Включить уведомления</button>
+    </section>
+  </main>
+  <script>window.VAPID_PUBLIC_KEY = "BEl62iUYgUivxIkv69yViEuiBIa-...";</script>
+  <script src="/static/client.js"></script>
+</body>
+</html>

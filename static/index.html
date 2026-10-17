@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QueueLess — электронная очередь</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>QueueLess</h1>
+    <p>Электронная очередь для малого бизнеса. Без CRM, без приложений.</p>
+
+    <form id="create-form">
+      <label>Название очереди
+        <input id="name" maxlength="100" required placeholder="Салон красоты на Ленина">
+      </label>
+      <label>Среднее время обслуживания, мин
+        <input id="avg" type="number" min="1" max="120" value="15" required>
+      </label>
+      <button type="submit">Создать очередь</button>
+    </form>
+
+    <section id="result" hidden>
+      <h2>Готово!</h2>
+      <p>Админ-ссылка: <a id="admin-link"></a></p>
+      <p>Публичная ссылка: <a id="public-link"></a></p>
+      <img id="qr" alt="QR-код" width="300" height="300">
+    </section>
+  </main>
+  <script>
+    document.getElementById('create-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const avg = parseInt(document.getElementById('avg').value, 10);
+      const r = await fetch('/api/admin/queues', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name, avg_service_min: avg}),
+      });
+      const data = await r.json();
+      if (!r.ok) { alert(data?.detail?.error?.message || 'Ошибка'); return; }
+      document.getElementById('result').hidden = false;
+      const adminLink = document.getElementById('admin-link');
+      adminLink.href = data.admin_url; adminLink.textContent = data.admin_url;
+      const pub = document.getElementById('public-link');
+      pub.href = data.public_url; pub.textContent = data.public_url;
+      document.getElementById('qr').src = data.qr_url;
+    });
+  </script>
+</body>
+</html>
